@@ -8,13 +8,14 @@ val feedModule = module {
     viewModel {
         FeedViewModel(
             getLatestMoviesUseCase = get(),
-            stringProvider = get()
+            stringProvider = get(),
+            navigator = get()
         )
     }
 
     factory<GetLatestMoviesUseCase> {
         GetLatestMoviesInteractor(
-            gateway = get(),
+            api = get(),
             stringProvider = get()
         )
     }

@@ -4,5 +4,6 @@
     <string name="retry">Retry</string>
 
     <string name="get_movies_error">Failed to get movies list.</string>
+    <string name="get_movie_error">Failed to get movie info.</string>
     <string name="empty_movies_error">There are no movies at this moment.</string>
 </resources>

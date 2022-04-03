@@ -7,6 +7,7 @@ import androidx.paging.cachedIn
 import ru.babaets.moviedbobserver.common.StringProvider
 import ru.babaets.moviedbobserver.common.exception.EmptyDataException
 import ru.babaets.moviedbobserver.common.exception.FetchPageException
+import ru.babaets.moviedbobserver.common.navigation.AppNavigator
 import ru.babaets.moviedbobserver.network.model.Movie
 import ru.babaets.moviedbobserver.network.model.PagedResponse
 import ru.babaets.moviedbobserver.presentation.feature.common.BaseViewModel
@@ -15,7 +16,8 @@ import ru.babaets.moviedbobserver.presentation.feature.common.paging.SimplePager
 
 class FeedViewModel(
     private val getLatestMoviesUseCase: GetLatestMoviesUseCase,
-    private val stringProvider: StringProvider
+    private val stringProvider: StringProvider,
+    private val navigator: AppNavigator
 ) : BaseViewModel() {
 
     private val pagingExceptionProvider = object : PagingExceptionProvider {
@@ -36,7 +38,7 @@ class FeedViewModel(
     }
 
     fun onMoviePressed(movie: Movie) {
-        // TODO: open movie screen
+        navigator.forward(FeedFragmentDirections.toMovie(movie.id))
     }
 
     fun onLoadStateChanged(states: CombinedLoadStates) {

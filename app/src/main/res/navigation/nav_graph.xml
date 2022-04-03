@@ -10,5 +10,22 @@
         android:id="@+id/feed"
         android:label="Feed"
         android:name="ru.babaets.moviedbobserver.presentation.feature.feed.FeedFragment"
-        tools:layout="@layout/fragment_feed"/>
+        tools:layout="@layout/fragment_feed">
+
+        <action
+            android:id="@+id/toMovie"
+            app:destination="@id/movie"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/movie"
+        android:label="Movie"
+        android:name="ru.babaets.moviedbobserver.presentation.feature.moviecard.MovieFragment"
+        tools:layout="@layout/fragment_movie">
+
+        <argument
+            android:name="movieId"
+            app:argType="long"
+            app:nullable="false"/>
+    </fragment>
 </navigation>

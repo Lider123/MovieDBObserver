@@ -8,8 +8,6 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.babaets.moviedbobserver.BuildConfig
-import ru.babaets.moviedbobserver.network.gateway.ApiGateway
-import ru.babaets.moviedbobserver.network.gateway.ApiGatewayImpl
 import java.util.concurrent.TimeUnit
 
 val networkModule = module {
@@ -46,11 +44,5 @@ val networkModule = module {
 
     single<Api> {
         get<Retrofit>().create(Api::class.java)
-    }
-
-    single<ApiGateway> {
-        ApiGatewayImpl(
-            api = get()
-        )
     }
 }

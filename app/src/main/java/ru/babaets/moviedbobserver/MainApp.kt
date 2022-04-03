@@ -6,6 +6,7 @@ import org.koin.core.context.startKoin
 import ru.babaets.moviedbobserver.common.appModule
 import ru.babaets.moviedbobserver.network.networkModule
 import ru.babaets.moviedbobserver.presentation.feature.feed.feedModule
+import ru.babaets.moviedbobserver.presentation.feature.moviecard.movieCardModule
 
 class MainApp : Application() {
 
@@ -20,7 +21,8 @@ class MainApp : Application() {
             modules(
                 appModule,
                 networkModule,
-                feedModule
+                feedModule,
+                movieCardModule
             )
         }
     }

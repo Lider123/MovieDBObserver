@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 apply(from = "secrets.gradle.kts")
@@ -42,6 +43,8 @@ android {
 }
 
 dependencies {
+
+    // Common
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.core:core-splashscreen:1.0.0-beta02")
     implementation("androidx.appcompat:appcompat:1.4.1")
@@ -49,7 +52,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
 
     // Navigation
-    val navVersion = "2.4.1"
+    val navVersion: String by rootProject.extra
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 

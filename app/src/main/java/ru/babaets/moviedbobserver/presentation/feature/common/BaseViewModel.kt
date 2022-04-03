@@ -19,6 +19,7 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
         viewModelScope.coroutineContext + Dispatchers.IO + CoroutineExceptionHandler(::onError)
 
     protected open fun onError(context: CoroutineContext, error: Throwable) {
+        error.printStackTrace()
         errorLiveData.postValue(error)
         progressLiveData.postValue(false)
     }
