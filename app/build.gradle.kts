@@ -19,7 +19,7 @@ android {
 
         val apiKey: String by extra
         buildConfigField("String", "API_URL", "\"https://api.themoviedb.org/3/\"")
-        buildConfigField("String", "IMAGE_URL", "\"http://image.tmdb.org/t/p/w400/\"")
+        buildConfigField("String", "IMAGE_URL", "\"https://image.tmdb.org/t/p/w400\"")
         buildConfigField("String", "API_KEY", apiKey)
     }
 
@@ -74,6 +74,9 @@ dependencies {
     val glideVersion = "4.12.0"
     implementation("com.github.bumptech.glide:glide:$glideVersion")
     annotationProcessor("com.github.bumptech.glide:compiler:$glideVersion")
+
+    // Paging
+    implementation("androidx.paging:paging-runtime-ktx:3.1.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")

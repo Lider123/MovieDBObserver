@@ -1,4 +1,4 @@
-package ru.babaets.moviedbobserver.presentation.feature.common
+package ru.babaets.moviedbobserver.common.exception
 
 class FetchDataException(
     override val message: String,

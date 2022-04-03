@@ -7,7 +7,8 @@ val feedModule = module {
 
     viewModel {
         FeedViewModel(
-            getLatestMoviesUseCase = get()
+            getLatestMoviesUseCase = get(),
+            stringProvider = get()
         )
     }
 
