@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryLight">#484848</color>
+    <color name="primary">#212121</color>
+    <color name="primaryDark">@android:color/black</color>
+    <color name="onPrimary">@android:color/white</color>
+    <color name="secondaryLight">#ffbb93</color>
+    <color name="secondary">#ff8a65</color>
+    <color name="secondaryDark">#c75b39</color>
+    <color name="onSecondary">@android:color/black</color>
+    <color name="background">#050505</color>
+    <color name="onBackground">@android:color/white</color>
+    <color name="text">@color/onBackground</color>
+    <color name="hint">#AFFF</color>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MovieDBObserver</string>
+
+    <string name="retry">Retry</string>
+
+    <string name="get_movies_error">Failed to get movies list.</string>
+</resources>

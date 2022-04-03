@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.MovieDBObserver.TextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textAppearance">@style/Typography.MovieDBObserver.TextAppearance</item>
+    </style>
+
+    <style
+        name="Widget.MovieDBObserver.CircularProgressIndicator"
+        parent="Widget.MaterialComponents.CircularProgressIndicator">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MovieDBObserver.CircularProgressIndicator</item>
+    </style>
+
+    <style name="Widget.MovieDBObserver.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/primary</item>
+        <item name="titleTextColor">@color/onPrimary</item>
+        <item name="titleTextAppearance">@style/Typography.MovieDBObserver.TextAppearance.Large</item>
+    </style>
+
+    <style name="Widget.MovieDBObserver.Button.Colored" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/secondary</item>
+    </style>
+
+    <style name="Widget.MovieDBObserver.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">@dimen/corners_default</item>
+        <item name="android:foreground">?android:attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+        <item name="cardElevation">@dimen/margin_small</item>
+    </style>
+</resources>

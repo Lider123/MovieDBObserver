@@ -1,0 +1,30 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.MovieDBObserver" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primaryDark</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondaryDark</item>
+        <item name="colorOnSecondary">@color/onSecondary</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:windowBackground">@color/background</item>
+
+        <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
+
+        <item name="android:textViewStyle">@style/Widget.MovieDBObserver.TextView</item>
+        <item name="toolbarStyle">@style/Widget.MovieDBObserver.Toolbar</item>
+        <item name="cardViewStyle">@style/Widget.MovieDBObserver.CardView</item>
+        <item name="circularProgressIndicatorStyle">@style/Widget.MovieDBObserver.CircularProgressIndicator</item>
+    </style>
+
+    <style name="Theme.MovieDBObserver.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>
+        <item name="windowSplashScreenAnimationDuration">200</item>
+        <item name="postSplashScreenTheme">@style/Theme.MovieDBObserver</item>
+    </style>
+
+    <style name="ThemeOverlay.MovieDBObserver.CircularProgressIndicator" parent="">
+        <item name="colorPrimary">@color/secondary</item>
+    </style>
+</resources>

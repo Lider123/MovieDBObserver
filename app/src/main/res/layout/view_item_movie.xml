@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:theme="@style/Theme.MovieDBObserver">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardPoster"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintDimensionRatio="3:5">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivPoster"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            tools:src="@tools:sample/backgrounds/scenic"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvRating"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginBottom="@dimen/margin_default"
+        android:elevation="4dp"
+        android:background="@drawable/bg_oval"
+        android:backgroundTint="@color/secondary"
+        android:textColor="@color/onSecondary"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@id/cardPoster"
+        app:layout_constraintBottom_toBottomOf="@id/cardPoster"
+        style="@style/Typography.MovieDBObserver.TextAppearance.Header"
+        tools:text="10.0"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginHorizontal="@dimen/margin_large"
+        android:maxLines="2"
+        android:ellipsize="end"
+        app:layout_constraintTop_toBottomOf="@id/cardPoster"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Typography.MovieDBObserver.TextAppearance.Header"
+        tools:text="@tools:sample/lorem/random"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvReleaseDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_large"
+        android:lines="1"
+        android:textColor="@color/hint"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0"
+        tools:text="@tools:sample/date/ddmmyy" />
+</androidx.constraintlayout.widget.ConstraintLayout>
