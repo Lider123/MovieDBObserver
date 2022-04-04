@@ -8,4 +8,7 @@
     <string name="empty_movies_error">There are no movies at this moment.</string>
 
     <string name="tmdb_rating_placeholder">%.1f TMDB</string>
+
+    <string name="home_tab_feed_title">Feed</string>
+    <string name="home_tab_search_title">Search</string>
 </resources>

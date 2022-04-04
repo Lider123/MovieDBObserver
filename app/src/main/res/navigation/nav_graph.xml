@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/feed">
+    app:startDestination="@id/home">
 
     <fragment
-        android:id="@+id/feed"
-        android:label="Feed"
-        android:name="ru.babaets.moviedbobserver.presentation.feature.feed.FeedFragment"
-        tools:layout="@layout/fragment_feed">
+        android:id="@+id/home"
+        android:label="Home"
+        android:name="ru.babaets.moviedbobserver.presentation.feature.home.HomeFragment"
+        tools:layout="@layout/fragment_home">
 
         <action
             android:id="@+id/toMovie"

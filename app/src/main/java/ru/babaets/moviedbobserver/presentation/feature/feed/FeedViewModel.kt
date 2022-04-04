@@ -13,6 +13,7 @@ import ru.babaets.moviedbobserver.network.model.PagedResponse
 import ru.babaets.moviedbobserver.presentation.feature.common.BaseViewModel
 import ru.babaets.moviedbobserver.presentation.feature.common.paging.PagingExceptionProvider
 import ru.babaets.moviedbobserver.presentation.feature.common.paging.SimplePager
+import ru.babaets.moviedbobserver.presentation.feature.home.HomeFragmentDirections
 
 class FeedViewModel(
     private val getLatestMoviesUseCase: GetLatestMoviesUseCase,
@@ -38,7 +39,7 @@ class FeedViewModel(
     }
 
     fun onMoviePressed(movie: Movie) {
-        navigator.forward(FeedFragmentDirections.toMovie(movie.id))
+        navigator.forward(HomeFragmentDirections.toMovie(movie.id))
     }
 
     fun onLoadStateChanged(states: CombinedLoadStates) {
