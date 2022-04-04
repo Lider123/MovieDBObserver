@@ -16,6 +16,7 @@
             android:name="ru.babaets.moviedbobserver.presentation.feature.MainActivity"
             android:theme="@style/Theme.MovieDBObserver.Starting"
             android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

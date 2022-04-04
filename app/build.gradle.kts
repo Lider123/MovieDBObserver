@@ -81,6 +81,9 @@ dependencies {
     // Paging
     implementation("androidx.paging:paging-runtime-ktx:3.1.0")
 
+    // Flexbox
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")

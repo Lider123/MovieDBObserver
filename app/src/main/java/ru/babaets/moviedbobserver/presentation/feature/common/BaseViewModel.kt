@@ -3,10 +3,7 @@ package ru.babaets.moviedbobserver.presentation.feature.common
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel : ViewModel(), CoroutineScope {
@@ -24,7 +21,10 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
         progressLiveData.postValue(false)
     }
 
-    protected inline fun launchWithLoading(crossinline callback: suspend () -> Unit) = launch {
+    protected inline fun launchWithLoading(
+        dispatcher: CoroutineDispatcher = Dispatchers.Default,
+        crossinline callback: suspend () -> Unit
+    ) = launch(dispatcher) {
         progressLiveData.postValue(true)
         errorLiveData.postValue(null)
         callback.invoke()

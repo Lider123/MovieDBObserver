@@ -1,6 +1,7 @@
 package ru.babaets.moviedbobserver.presentation.feature.moviecard
 
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.Dispatchers
 import ru.babaets.moviedbobserver.common.navigation.AppNavigator
 import ru.babaets.moviedbobserver.network.model.Movie
 import ru.babaets.moviedbobserver.presentation.feature.common.BaseViewModel
@@ -26,7 +27,7 @@ class MovieViewModel(
     }
 
     private fun loadMovie() {
-        launchWithLoading {
+        launchWithLoading(Dispatchers.IO) {
             movieLiveData.postValue(getMovieUseCase.execute(movieId))
         }
     }

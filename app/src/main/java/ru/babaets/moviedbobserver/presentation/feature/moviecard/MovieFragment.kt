@@ -8,6 +8,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.babaets.moviedbobserver.R
+import ru.babaets.moviedbobserver.common.utils.load
 import ru.babaets.moviedbobserver.databinding.FragmentMovieBinding
 import ru.babaets.moviedbobserver.network.model.Movie
 import ru.babaets.moviedbobserver.presentation.feature.common.BaseFragment
@@ -24,13 +25,17 @@ class MovieFragment : BaseFragment<MovieViewModel>() {
 
     private val args: MovieFragmentArgs by navArgs()
 
+    private val genresAdapter: GenresAdapter by lazy {
+        GenresAdapter()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.run {
-            setNavigationIcon(R.drawable.ic_back)
-            setNavigationOnClickListener {
+        binding.run {
+            toolbar.setNavigationOnClickListener {
                 viewModel.onBackPressed()
             }
+            rvGenres.adapter = genresAdapter
         }
 
         viewModel.movieLiveData.observe(viewLifecycleOwner, ::populateMovie)
@@ -56,6 +61,23 @@ class MovieFragment : BaseFragment<MovieViewModel>() {
     }
 
     private fun populateMovie(movie: Movie) {
-        binding.toolbar.title = movie.title
+        binding.run {
+            ivPoster.run {
+                movie.posterUrl?.let {
+                    load(it, R.drawable.logo)
+                }
+                isVisible = movie.posterUrl != null
+            }
+            tvTitle.text = movie.title
+            tvOverview.text = movie.overview
+            ratingBar.rating = movie.averageVote / 2
+            tvRating.text = resources.getString(R.string.tmdb_rating_placeholder, movie.averageVote)
+            genresAdapter.submitList(movie.genres) {
+                rvGenres.isVisible = !movie.genres.isNullOrEmpty()
+            }
+            tvTimeInfo.text = movie.formattedDuration?.let {
+                "${movie.releaseYearString} | $it"
+            } ?: movie.releaseYearString
+        }
     }
 }
