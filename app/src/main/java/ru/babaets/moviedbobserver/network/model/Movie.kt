@@ -8,7 +8,7 @@ import java.util.*
 data class Movie(
     @Json(name = "id") val id: Long,
     @Json(name = "title") val title: String,
-    @Json(name = "release_date") val releaseDateString: String,
+    @Json(name = "release_date") val releaseDateString: String?,
     @Json(name = "poster_path") val posterPath: String?,
     @Json(name = "overview") val overview: String?,
     @Json(name = "genres") val genres: List<Genre>?,
@@ -19,8 +19,8 @@ data class Movie(
     val posterUrl: String?
         get() = posterPath?.let { BuildConfig.IMAGE_URL + it }
 
-    val releaseDate: Date
-        get() = releaseDateString.parseApiDate()
+    val releaseDate: Date?
+        get() = releaseDateString?.parseApiDate()
 
     val formattedDuration: String?
         get() = durationMinutes?.let {
@@ -29,6 +29,6 @@ data class Movie(
             return if (minutes == 0) "${hours}h" else "${hours}h ${minutes}m"
         }
 
-    val releaseYearString: String
-        get() = releaseDateString.split("-")[0]
+    val releaseYearString: String?
+        get() = releaseDateString?.split("-")?.get(0)
 }

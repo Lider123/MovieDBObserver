@@ -1,26 +1,29 @@
-package ru.babaets.moviedbobserver.presentation.feature.feed
+package ru.babaets.moviedbobserver.presentation.feature.search
 
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import by.kirich1409.viewbindingdelegate.viewBinding
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.babaets.moviedbobserver.R
-import ru.babaets.moviedbobserver.databinding.FragmentFeedBinding
+import ru.babaets.moviedbobserver.common.utils.hideKeyboard
+import ru.babaets.moviedbobserver.databinding.FragmentSearchBinding
 import ru.babaets.moviedbobserver.network.model.Movie
 import ru.babaets.moviedbobserver.presentation.feature.common.BaseFragment
 import ru.babaets.moviedbobserver.presentation.feature.common.MoviesAdapter
 
-class FeedFragment : BaseFragment<FeedViewModel>() {
+class SearchFragment : BaseFragment<SearchViewModel>() {
 
-    override val layoutRes: Int = R.layout.fragment_feed
+    override val layoutRes: Int = R.layout.fragment_search
 
-    override val viewModel: FeedViewModel by viewModel()
+    override val viewModel: SearchViewModel by viewModel()
 
-    private val binding: FragmentFeedBinding by viewBinding()
+    private val binding: FragmentSearchBinding by viewBinding()
 
     private val adapter: MoviesAdapter by lazy {
         MoviesAdapter(viewModel::onMoviePressed).apply {
@@ -30,15 +33,36 @@ class FeedFragment : BaseFragment<FeedViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvMovies.adapter = adapter
+        binding.run {
+            inputSearch.run {
+                doAfterTextChanged {
+                    btnClear.isVisible = it.toString().isNotEmpty()
+                    viewModel.onUiQueryChanged(it.toString())
+                }
+                setOnEditorActionListener { _, i, _ ->
+                    when (i) {
+                        EditorInfo.IME_ACTION_SEARCH -> {
+                            viewModel.onSearchPressed()
+                            hideKeyboard()
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            }
+            btnClear.setOnClickListener {
+                inputSearch.setText("")
+            }
+            btnSearch.setOnClickListener {
+                viewModel.onSearchPressed()
+                hideKeyboard()
+            }
+            rvMovies.adapter = adapter
+        }
 
         lifecycleScope.launchWhenResumed {
             viewModel.moviesFlow.collect(::populateMovies)
         }
-    }
-
-    override fun populateProgress(isLoading: Boolean) {
-        binding.progress.isVisible = isLoading
     }
 
     override fun populateError(exception: Throwable?) {
@@ -54,6 +78,10 @@ class FeedFragment : BaseFragment<FeedViewModel>() {
                 }
             }
         }
+    }
+
+    override fun populateProgress(isLoading: Boolean) {
+        binding.progress.isVisible = isLoading
     }
 
     private suspend fun populateMovies(movies: PagingData<Movie>) {

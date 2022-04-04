@@ -1,4 +1,4 @@
-package ru.babaets.moviedbobserver.presentation.feature.feed
+package ru.babaets.moviedbobserver.presentation.feature.search
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.CombinedLoadStates
@@ -15,16 +15,18 @@ import ru.babaets.moviedbobserver.presentation.feature.common.paging.PagingExcep
 import ru.babaets.moviedbobserver.presentation.feature.common.paging.SimplePager
 import ru.babaets.moviedbobserver.presentation.feature.home.HomeFragmentDirections
 
-class FeedViewModel(
-    private val getLatestMoviesUseCase: GetLatestMoviesUseCase,
-    private val stringProvider: StringProvider,
-    private val navigator: AppNavigator
+class SearchViewModel(
+    private val searchMoviesUseCase: SearchMoviesUseCase,
+    private val navigator: AppNavigator,
+    stringProvider: StringProvider
 ) : BaseViewModel() {
+
+    private var query: String = ""
 
     private val pagingExceptionProvider = object : PagingExceptionProvider {
 
         override val emptyError: EmptyDataException
-            get() = EmptyDataException(stringProvider.EMPTY_MOVIES_ERROR)
+            get() = EmptyDataException(stringProvider.EMPTY_MOVIES_SEARCH_ERROR)
 
         override fun getPageError(cause: Exception): FetchPageException =
             FetchPageException(stringProvider.GET_MOVIES_ERROR, cause)
@@ -33,6 +35,14 @@ class FeedViewModel(
     private val moviesPager = SimplePager(::loadNext, pagingExceptionProvider)
 
     val moviesFlow = moviesPager.flow.cachedIn(viewModelScope)
+
+    fun onSearchPressed() {
+        moviesPager.invalidate()
+    }
+
+    fun onUiQueryChanged(query: String) {
+        this.query = query
+    }
 
     fun onRetryPressed() {
         moviesPager.invalidate()
@@ -60,5 +70,5 @@ class FeedViewModel(
     }
 
     private suspend fun loadNext(page: Int): PagedResponse<Movie> =
-        getLatestMoviesUseCase.execute(page)
+        searchMoviesUseCase.execute(query, page)
 }

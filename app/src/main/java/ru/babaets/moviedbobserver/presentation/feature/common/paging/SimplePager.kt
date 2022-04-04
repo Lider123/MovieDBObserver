@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import ru.babaets.moviedbobserver.common.exception.EmptyDataException
 import ru.babaets.moviedbobserver.network.model.PagedResponse
 
 class SimplePager<T : Any, R : PagedResponse<T>>(
@@ -25,7 +26,8 @@ class SimplePager<T : Any, R : PagedResponse<T>>(
                         nextKey = if (response.isFinalPage) null else currentPage + 1
                     )
                 } catch (e: Exception) {
-                    LoadResult.Error(exceptionProvider.getPageError(e))
+                    val exception = if (e is EmptyDataException) e else exceptionProvider.getPageError(e)
+                    LoadResult.Error(exception)
                 }
             }
 

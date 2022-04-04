@@ -8,6 +8,7 @@ import ru.babaets.moviedbobserver.network.networkModule
 import ru.babaets.moviedbobserver.presentation.feature.feed.feedModule
 import ru.babaets.moviedbobserver.presentation.feature.home.homeModule
 import ru.babaets.moviedbobserver.presentation.feature.moviecard.movieCardModule
+import ru.babaets.moviedbobserver.presentation.feature.search.searchModule
 
 class MainApp : Application() {
 
@@ -24,6 +25,7 @@ class MainApp : Application() {
                 networkModule,
                 homeModule,
                 feedModule,
+                searchModule,
                 movieCardModule
             )
         }

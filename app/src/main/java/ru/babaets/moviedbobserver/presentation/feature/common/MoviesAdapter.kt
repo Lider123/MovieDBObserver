@@ -46,7 +46,7 @@ class MoviesAdapter(
                 } ?: ivPoster.load(R.drawable.logo)
                 tvRating.text = item.averageVote.toFormattedString(1)
                 tvTitle.text = item.title
-                tvReleaseDate.text = item.releaseDate.toUiString()
+                tvReleaseDate.text = item.releaseDate?.toUiString()
             }
         }
     }

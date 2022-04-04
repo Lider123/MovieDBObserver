@@ -21,4 +21,11 @@ interface Api {
         @Path("movie_id") movieId: Long,
         @Query("api_key") apiKey: String,
     ): Movie
+
+    @GET("search/movie")
+    suspend fun searchMovie(
+        @Query("api_key") apiKey: String,
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): PagedResponse<Movie>
 }

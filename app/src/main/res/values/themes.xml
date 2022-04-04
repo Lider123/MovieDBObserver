@@ -15,6 +15,7 @@
         <item name="toolbarStyle">@style/Widget.MovieDBObserver.Toolbar</item>
         <item name="cardViewStyle">@style/Widget.MovieDBObserver.CardView</item>
         <item name="circularProgressIndicatorStyle">@style/Widget.MovieDBObserver.CircularProgressIndicator</item>
+        <item name="editTextStyle">@style/Widget.MovieDBObserver.EditText</item>
     </style>
 
     <style name="Theme.MovieDBObserver.Starting" parent="Theme.SplashScreen">

@@ -11,4 +11,15 @@ data class PagedResponse<T>(
 
     val isFinalPage: Boolean
         get() = page >= totalPages
+
+    companion object {
+
+        fun <T> empty(): PagedResponse<T> =
+            PagedResponse(
+                page = 1,
+                items = emptyList<T>(),
+                totalResults = 0,
+                totalPages = 1,
+            )
+    }
 }

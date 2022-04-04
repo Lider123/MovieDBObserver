@@ -26,4 +26,11 @@
         <item name="android:clickable">true</item>
         <item name="cardElevation">@dimen/margin_small</item>
     </style>
+
+    <style name="Widget.MovieDBObserver.EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/onPrimary</item>
+        <item name="android:textColorHint">@color/hint</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

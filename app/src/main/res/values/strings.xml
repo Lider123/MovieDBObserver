@@ -6,9 +6,12 @@
     <string name="get_movies_error">Failed to get movies list.</string>
     <string name="get_movie_error">Failed to get movie info.</string>
     <string name="empty_movies_error">There are no movies at this moment.</string>
+    <string name="empty_movies_search_error">Movies not found. Try to change the search query.</string>
 
     <string name="tmdb_rating_placeholder">%.1f TMDB</string>
 
     <string name="home_tab_feed_title">Feed</string>
     <string name="home_tab_search_title">Search</string>
+
+    <string name="search_hint">Search movies</string>
 </resources>
