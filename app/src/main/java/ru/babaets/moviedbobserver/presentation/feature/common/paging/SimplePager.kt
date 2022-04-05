@@ -18,7 +18,7 @@ class SimplePager<T : Any, R : PagedResponse<T>>(
                 val currentPage = params.key ?: START_PAGE
                 return try {
                     val response = loadNext.invoke(currentPage)
-                    if (response.isFinalPage && currentPage == START_PAGE) throw exceptionProvider.emptyError
+                    if (response.items.isEmpty() && currentPage == START_PAGE) throw exceptionProvider.emptyError
 
                     LoadResult.Page(
                         data = response.items,

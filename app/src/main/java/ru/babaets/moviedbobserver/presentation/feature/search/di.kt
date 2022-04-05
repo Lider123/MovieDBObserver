@@ -8,6 +8,7 @@ val searchModule = module {
     viewModel {
         SearchViewModel(
             searchMoviesUseCase = get(),
+            getSearchKeywordsUseCase = get(),
             navigator = get(),
             stringProvider = get()
         )
@@ -15,6 +16,13 @@ val searchModule = module {
 
     factory<SearchMoviesUseCase> {
         SearchMoviesInteractor(
+            api = get(),
+            stringProvider = get()
+        )
+    }
+
+    factory<GetSearchKeywordsUseCase> {
+        GetSearchKeywordsInteractor(
             api = get(),
             stringProvider = get()
         )

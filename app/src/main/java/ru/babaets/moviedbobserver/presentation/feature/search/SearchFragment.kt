@@ -8,11 +8,16 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.babaets.moviedbobserver.R
 import ru.babaets.moviedbobserver.common.utils.hideKeyboard
 import ru.babaets.moviedbobserver.databinding.FragmentSearchBinding
+import ru.babaets.moviedbobserver.network.model.Keyword
 import ru.babaets.moviedbobserver.network.model.Movie
 import ru.babaets.moviedbobserver.presentation.feature.common.BaseFragment
 import ru.babaets.moviedbobserver.presentation.feature.common.MoviesAdapter
@@ -25,10 +30,14 @@ class SearchFragment : BaseFragment<SearchViewModel>() {
 
     private val binding: FragmentSearchBinding by viewBinding()
 
-    private val adapter: MoviesAdapter by lazy {
+    private val moviesAdapter: MoviesAdapter by lazy {
         MoviesAdapter(viewModel::onMoviePressed).apply {
             addLoadStateListener(viewModel::onLoadStateChanged)
         }
+    }
+
+    private val keywordsAdapter: KeywordsAdapter by lazy {
+        KeywordsAdapter(viewModel::onKeywordPressed)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,12 +66,24 @@ class SearchFragment : BaseFragment<SearchViewModel>() {
                 viewModel.onSearchPressed()
                 hideKeyboard()
             }
-            rvMovies.adapter = adapter
+            rvMovies.adapter = moviesAdapter
+            rvKeywords.run {
+                layoutManager = FlexboxLayoutManager(context).apply {
+                    flexDirection = FlexDirection.ROW
+                    justifyContent =JustifyContent.FLEX_START
+                    flexWrap = FlexWrap.WRAP
+                }
+                adapter = keywordsAdapter
+            }
         }
 
         lifecycleScope.launchWhenResumed {
             viewModel.moviesFlow.collect(::populateMovies)
         }
+        lifecycleScope.launchWhenResumed {
+            viewModel.queryFlow.collect(::populateQuery)
+        }
+        viewModel.keywordsLiveData.observe(viewLifecycleOwner, ::populateKeywords)
     }
 
     override fun populateError(exception: Throwable?) {
@@ -85,7 +106,21 @@ class SearchFragment : BaseFragment<SearchViewModel>() {
     }
 
     private suspend fun populateMovies(movies: PagingData<Movie>) {
-        adapter.submitData(movies)
-        binding.rvMovies.isVisible = adapter.itemCount > 0
+        moviesAdapter.submitData(movies)
+    }
+
+    private suspend fun populateQuery(query: String) {
+        binding.inputSearch.run {
+            if (query == text.toString()) return
+
+            setText(query)
+            setSelection(query.length)
+        }
+    }
+
+    private fun populateKeywords(keywords: List<Keyword>) {
+        keywordsAdapter.submitList(keywords) {
+            binding.rvKeywords.isVisible = keywords.isNotEmpty()
+        }
     }
 }

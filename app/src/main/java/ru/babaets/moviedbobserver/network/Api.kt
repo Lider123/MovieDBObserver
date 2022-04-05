@@ -3,6 +3,7 @@ package ru.babaets.moviedbobserver.network
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import ru.babaets.moviedbobserver.network.model.Keyword
 import ru.babaets.moviedbobserver.network.model.Movie
 import ru.babaets.moviedbobserver.network.model.PagedResponse
 
@@ -28,4 +29,11 @@ interface Api {
         @Query("query") query: String,
         @Query("page") page: Int
     ): PagedResponse<Movie>
+
+    @GET("search/keyword")
+    suspend fun searchKeyword(
+        @Query("api_key") apiKey: String,
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): PagedResponse<Keyword>
 }

@@ -29,7 +29,7 @@
 
     <style name="Widget.MovieDBObserver.EditText" parent="Widget.AppCompat.EditText">
         <item name="android:background">@android:color/transparent</item>
-        <item name="android:textColor">@color/onPrimary</item>
+        <item name="android:textColor">@color/text</item>
         <item name="android:textColorHint">@color/hint</item>
         <item name="android:textSize">18sp</item>
     </style>

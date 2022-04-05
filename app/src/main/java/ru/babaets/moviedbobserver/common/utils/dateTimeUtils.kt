@@ -1,5 +1,6 @@
 package ru.babaets.moviedbobserver.common.utils
 
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -12,5 +13,9 @@ fun Date.toApiString(): String =
 fun Date.toUiString(): String =
     SimpleDateFormat(UI_DATE_FORMAT, Locale.getDefault()).format(this)
 
-fun String.parseApiDate(): Date =
-    SimpleDateFormat(API_DATE_FORMAT, Locale.getDefault()).parse(this)!!
+fun String.parseApiDate(): Date? =
+    try {
+        SimpleDateFormat(API_DATE_FORMAT, Locale.getDefault()).parse(this)
+    } catch (e: ParseException) {
+        null
+    }

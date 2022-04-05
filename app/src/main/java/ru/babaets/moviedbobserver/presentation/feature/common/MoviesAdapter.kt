@@ -1,11 +1,11 @@
 package ru.babaets.moviedbobserver.presentation.feature.common
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.babaets.moviedbobserver.R
+import ru.babaets.moviedbobserver.common.utils.inflateBinding
 import ru.babaets.moviedbobserver.common.utils.load
 import ru.babaets.moviedbobserver.common.utils.toFormattedString
 import ru.babaets.moviedbobserver.common.utils.toUiString
@@ -17,10 +17,7 @@ class MoviesAdapter(
 ) : PagingDataAdapter<Movie, MoviesAdapter.ViewHolder>(MoviesDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            .let {
-                ViewHolder(it, onItemClick)
-            }
+        ViewHolder(parent.inflateBinding(ViewItemMovieBinding::inflate), onItemClick)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         getItem(position)?.let(holder::bind)
@@ -28,7 +25,7 @@ class MoviesAdapter(
 
     class ViewHolder(
         private val binding: ViewItemMovieBinding,
-        private val onClick: (item: Movie) -> Unit
+        onClick: (item: Movie) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         private var movie: Movie? = null
 
