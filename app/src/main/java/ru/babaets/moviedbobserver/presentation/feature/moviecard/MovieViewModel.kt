@@ -1,34 +1,12 @@
 package ru.babaets.moviedbobserver.presentation.feature.moviecard
 
-import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.Dispatchers
-import ru.babaets.moviedbobserver.common.navigation.AppNavigator
+import androidx.lifecycle.LiveData
 import ru.babaets.moviedbobserver.network.model.Movie
-import ru.babaets.moviedbobserver.presentation.feature.common.BaseViewModel
+import ru.babaets.moviedbobserver.presentation.feature.common.IViewModel
 
-class MovieViewModel(
-    private val movieId: Long,
-    private val getMovieUseCase: GetMovieUseCase,
-    private val navigator: AppNavigator
-) : BaseViewModel() {
+interface MovieViewModel : IViewModel {
 
-    val movieLiveData = MutableLiveData<Movie>()
+    val movieLiveData: LiveData<Movie>
 
-    init {
-        loadMovie()
-    }
-
-    fun onRetryPressed() {
-        loadMovie()
-    }
-
-    fun onBackPressed() {
-        navigator.back()
-    }
-
-    private fun loadMovie() {
-        launchWithLoading(Dispatchers.IO) {
-            movieLiveData.postValue(getMovieUseCase.execute(movieId))
-        }
-    }
+    fun onRetryPressed()
 }

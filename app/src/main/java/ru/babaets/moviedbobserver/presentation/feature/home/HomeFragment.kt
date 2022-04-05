@@ -13,7 +13,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
 
     override val layoutRes: Int = R.layout.fragment_home
 
-    override val viewModel: HomeViewModel by viewModel()
+    override val viewModel: HomeViewModel by viewModel<HomeViewModelImpl>()
 
     override fun populateProgress(isLoading: Boolean) = Unit
 

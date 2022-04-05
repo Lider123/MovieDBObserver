@@ -26,7 +26,7 @@ class SearchFragment : BaseFragment<SearchViewModel>() {
 
     override val layoutRes: Int = R.layout.fragment_search
 
-    override val viewModel: SearchViewModel by viewModel()
+    override val viewModel: SearchViewModel by viewModel<SearchViewModelImpl>()
 
     private val binding: FragmentSearchBinding by viewBinding()
 

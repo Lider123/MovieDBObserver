@@ -17,7 +17,7 @@ class MovieFragment : BaseFragment<MovieViewModel>() {
 
     override val layoutRes: Int = R.layout.fragment_movie
 
-    override val viewModel: MovieViewModel by viewModel {
+    override val viewModel: MovieViewModel by viewModel<MovieViewModelImpl> {
         parametersOf(args.movieId)
     }
 

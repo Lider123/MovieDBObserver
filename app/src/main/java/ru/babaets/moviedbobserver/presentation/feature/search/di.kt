@@ -6,7 +6,7 @@ import org.koin.dsl.module
 val searchModule = module {
 
     viewModel {
-        SearchViewModel(
+        SearchViewModelImpl(
             searchMoviesUseCase = get(),
             getSearchKeywordsUseCase = get(),
             navigator = get(),

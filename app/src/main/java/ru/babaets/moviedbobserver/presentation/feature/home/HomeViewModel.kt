@@ -1,5 +1,5 @@
 package ru.babaets.moviedbobserver.presentation.feature.home
 
-import ru.babaets.moviedbobserver.presentation.feature.common.BaseViewModel
+import ru.babaets.moviedbobserver.presentation.feature.common.IViewModel
 
-class HomeViewModel : BaseViewModel()
+interface HomeViewModel : IViewModel

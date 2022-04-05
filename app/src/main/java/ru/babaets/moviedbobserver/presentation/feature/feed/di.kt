@@ -6,7 +6,7 @@ import org.koin.dsl.module
 val feedModule = module {
 
     viewModel {
-        FeedViewModel(
+        FeedViewModelImpl(
             getLatestMoviesUseCase = get(),
             stringProvider = get(),
             navigator = get()

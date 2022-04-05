@@ -6,7 +6,7 @@ import org.koin.dsl.module
 val movieCardModule = module {
 
     viewModel { (movieId: Long) ->
-        MovieViewModel(
+        MovieViewModelImpl(
             movieId = movieId,
             getMovieUseCase = get(),
             navigator = get()

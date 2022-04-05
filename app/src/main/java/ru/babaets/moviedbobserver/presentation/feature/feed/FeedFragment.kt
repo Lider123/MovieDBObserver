@@ -18,7 +18,7 @@ class FeedFragment : BaseFragment<FeedViewModel>() {
 
     override val layoutRes: Int = R.layout.fragment_feed
 
-    override val viewModel: FeedViewModel by viewModel()
+    override val viewModel: FeedViewModel by viewModel<FeedViewModelImpl>()
 
     private val binding: FragmentFeedBinding by viewBinding()
 
