@@ -10,9 +10,9 @@ import ru.babaets.moviedbobserver.presentation.feature.common.IViewModel
 
 interface SearchViewModel : IViewModel {
 
-    val moviesFlow: Flow<PagingData<Movie>>
+    val moviesLiveData: LiveData<PagingData<Movie>>
 
-    val queryFlow: Flow<String>
+    val queryLiveData: LiveData<String>
 
     val keywordsLiveData: LiveData<List<Keyword>>
 

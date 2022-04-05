@@ -1,9 +1,12 @@
 package ru.babaets.moviedbobserver.presentation.feature.search
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,6 +35,14 @@ class SearchViewModelImpl(
     stringProvider: StringProvider
 ) : BaseViewModel(navigator), SearchViewModel {
 
+    override val keywordsLiveData = MutableLiveData<List<Keyword>>()
+
+    override val queryLiveData: LiveData<String>
+        get() = queryFlow.asLiveData(coroutineContext)
+
+    override val moviesLiveData: LiveData<PagingData<Movie>>
+        get() = moviesFlow.asLiveData(coroutineContext)
+
     private val pagingExceptionProvider = object : PagingExceptionProvider {
 
         override val emptyError: EmptyDataException
@@ -41,13 +52,11 @@ class SearchViewModelImpl(
             FetchPageException(stringProvider.GET_MOVIES_ERROR, cause)
     }
 
+    private val queryFlow = MutableStateFlow("")
+
     private val moviesPager = SimplePager(::loadNext, pagingExceptionProvider)
 
-    override val moviesFlow = moviesPager.flow.cachedIn(viewModelScope)
-
-    override val queryFlow = MutableStateFlow("")
-
-    override val keywordsLiveData = MutableLiveData<List<Keyword>>()
+    private val moviesFlow = moviesPager.flow.cachedIn(viewModelScope)
 
     init {
         queryFlow.debounce(QUERY_UPDATES_DEBOUNCE)

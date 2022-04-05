@@ -5,14 +5,12 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.babaets.moviedbobserver.R
 import ru.babaets.moviedbobserver.common.utils.hideKeyboard
@@ -77,12 +75,8 @@ class SearchFragment : BaseFragment<SearchViewModel>() {
             }
         }
 
-        lifecycleScope.launchWhenResumed {
-            viewModel.moviesFlow.collect(::populateMovies)
-        }
-        lifecycleScope.launchWhenResumed {
-            viewModel.queryFlow.collect(::populateQuery)
-        }
+        viewModel.moviesLiveData.observe(viewLifecycleOwner, ::populateMovies)
+        viewModel.queryLiveData.observe(viewLifecycleOwner, ::populateQuery)
         viewModel.keywordsLiveData.observe(viewLifecycleOwner, ::populateKeywords)
     }
 
@@ -105,11 +99,11 @@ class SearchFragment : BaseFragment<SearchViewModel>() {
         binding.progress.isVisible = isLoading
     }
 
-    private suspend fun populateMovies(movies: PagingData<Movie>) {
-        moviesAdapter.submitData(movies)
+    private fun populateMovies(movies: PagingData<Movie>) {
+        moviesAdapter.submitData(lifecycle, movies)
     }
 
-    private suspend fun populateQuery(query: String) {
+    private fun populateQuery(query: String) {
         binding.inputSearch.run {
             if (query == text.toString()) return
 

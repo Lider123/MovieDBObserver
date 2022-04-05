@@ -3,10 +3,8 @@ package ru.babaets.moviedbobserver.presentation.feature.feed
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import by.kirich1409.viewbindingdelegate.viewBinding
-import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.babaets.moviedbobserver.R
 import ru.babaets.moviedbobserver.databinding.FragmentFeedBinding
@@ -32,9 +30,7 @@ class FeedFragment : BaseFragment<FeedViewModel>() {
         super.onViewCreated(view, savedInstanceState)
         binding.rvMovies.adapter = adapter
 
-        lifecycleScope.launchWhenResumed {
-            viewModel.moviesFlow.collect(::populateMovies)
-        }
+        viewModel.moviesLiveData.observe(viewLifecycleOwner, ::populateMovies)
     }
 
     override fun populateProgress(isLoading: Boolean) {
@@ -56,8 +52,7 @@ class FeedFragment : BaseFragment<FeedViewModel>() {
         }
     }
 
-    private suspend fun populateMovies(movies: PagingData<Movie>) {
-        adapter.submitData(movies)
-        binding.rvMovies.isVisible = adapter.itemCount > 0
+    private fun populateMovies(movies: PagingData<Movie>) {
+        adapter.submitData(lifecycle, movies)
     }
 }

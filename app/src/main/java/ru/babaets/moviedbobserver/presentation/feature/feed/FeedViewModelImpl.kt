@@ -1,8 +1,11 @@
 package ru.babaets.moviedbobserver.presentation.feature.feed
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import ru.babaets.moviedbobserver.common.StringProvider
 import ru.babaets.moviedbobserver.common.exception.EmptyDataException
@@ -21,6 +24,9 @@ class FeedViewModelImpl(
     navigator: AppNavigator
 ) : BaseViewModel(navigator), FeedViewModel {
 
+    override val moviesLiveData: LiveData<PagingData<Movie>>
+        get() = moviesFlow.asLiveData(coroutineContext)
+
     private val pagingExceptionProvider = object : PagingExceptionProvider {
 
         override val emptyError: EmptyDataException
@@ -32,7 +38,7 @@ class FeedViewModelImpl(
 
     private val moviesPager = SimplePager(::loadNext, pagingExceptionProvider)
 
-    override val moviesFlow = moviesPager.flow.cachedIn(viewModelScope)
+    private val moviesFlow = moviesPager.flow.cachedIn(viewModelScope)
 
     override fun onRetryPressed() {
         moviesPager.invalidate()
