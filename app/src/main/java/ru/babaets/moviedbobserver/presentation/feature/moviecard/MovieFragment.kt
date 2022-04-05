@@ -83,8 +83,8 @@ class MovieFragment : BaseFragment<MovieViewModel>() {
             tvTimeInfo.text = movie.formattedDuration?.let {
                 "${movie.releaseYearString} | $it"
             } ?: movie.releaseYearString
-            videosAdapter.submitList(movie.videos?.results) {
-                groupVideos.isVisible = !movie.videos?.results.isNullOrEmpty()
+            videosAdapter.submitList(movie.videos?.youtubeResults) {
+                groupVideos.isVisible = !movie.videos?.youtubeResults.isNullOrEmpty()
             }
         }
     }

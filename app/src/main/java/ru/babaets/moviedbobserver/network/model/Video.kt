@@ -28,11 +28,6 @@ data class Video(
             apiName = "YouTube",
             videoUrlFactory = { key -> "https://www.youtube.com/watch?v=$key" },
             thumbnailUrlFactory = { key -> "https://img.youtube.com/vi/$key/hqdefault.jpg" }
-        ),
-        VIMEO(
-            apiName = "Vimeo",
-            videoUrlFactory = { key -> "https://vimeo.com/$key" },
-            thumbnailUrlFactory = { key -> "https://vimeo.com/api/v2/video/$key.json?callback=showThumb" }
         );
 
         companion object {
