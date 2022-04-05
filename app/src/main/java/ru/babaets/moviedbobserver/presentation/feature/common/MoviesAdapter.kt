@@ -3,7 +3,6 @@ package ru.babaets.moviedbobserver.presentation.feature.common
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import ru.babaets.moviedbobserver.R
 import ru.babaets.moviedbobserver.common.utils.inflateBinding
 import ru.babaets.moviedbobserver.common.utils.load
@@ -26,17 +25,16 @@ class MoviesAdapter(
     class ViewHolder(
         private val binding: ViewItemMovieBinding,
         onClick: (item: Movie) -> Unit
-    ) : RecyclerView.ViewHolder(binding.root) {
-        private var movie: Movie? = null
+    ) : BaseViewHolder<Movie>(binding.root) {
 
         init {
             binding.cardPoster.setOnClickListener {
-                movie?.let(onClick)
+                item?.let(onClick)
             }
         }
 
-        fun bind(item: Movie) {
-            movie = item
+        override fun bind(item: Movie) {
+            super.bind(item)
             binding.run {
                 item.posterUrl?.let {
                     ivPoster.load(it, R.drawable.logo)

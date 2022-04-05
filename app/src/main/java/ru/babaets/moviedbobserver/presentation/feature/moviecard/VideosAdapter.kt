@@ -2,30 +2,25 @@ package ru.babaets.moviedbobserver.presentation.feature.moviecard
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import ru.babaets.moviedbobserver.R
 import ru.babaets.moviedbobserver.common.utils.inflateBinding
 import ru.babaets.moviedbobserver.common.utils.load
 import ru.babaets.moviedbobserver.databinding.ViewItemVideoBinding
 import ru.babaets.moviedbobserver.network.model.Video
+import ru.babaets.moviedbobserver.presentation.feature.common.BaseAdapter
+import ru.babaets.moviedbobserver.presentation.feature.common.BaseViewHolder
 
 class VideosAdapter(
     private val onItemClick: (Video) -> Unit
-) : ListAdapter<Video, VideosAdapter.ViewHolder>(VideosDiffUtilCallback()) {
+) : BaseAdapter<Video>(VideosDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(parent.inflateBinding(ViewItemVideoBinding::inflate), onItemClick)
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
-
     class ViewHolder(
         private val binding: ViewItemVideoBinding,
         onClick: (Video) -> Unit
-    ) : RecyclerView.ViewHolder(binding.root) {
-        private var item: Video? = null
+    ) : BaseViewHolder<Video>(binding.root) {
 
         init {
             binding.cardThumbnail.setOnClickListener {
@@ -33,8 +28,8 @@ class VideosAdapter(
             }
         }
 
-        fun bind(item: Video) {
-            this.item = item
+        override fun bind(item: Video) {
+            super.bind(item)
             binding.run {
                 tvName.text = item.name
                 tvType.text = item.typeName

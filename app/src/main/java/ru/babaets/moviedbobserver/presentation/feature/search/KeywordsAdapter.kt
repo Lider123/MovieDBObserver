@@ -2,28 +2,23 @@ package ru.babaets.moviedbobserver.presentation.feature.search
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import ru.babaets.moviedbobserver.common.utils.inflateBinding
 import ru.babaets.moviedbobserver.databinding.ViewItemKeywordBinding
 import ru.babaets.moviedbobserver.network.model.Keyword
+import ru.babaets.moviedbobserver.presentation.feature.common.BaseAdapter
+import ru.babaets.moviedbobserver.presentation.feature.common.BaseViewHolder
 
 class KeywordsAdapter(
     private val onItemClick: (Keyword) -> Unit
-) : ListAdapter<Keyword, KeywordsAdapter.ViewHolder>(KeywordsDiffUtilCallback()) {
+) : BaseAdapter<Keyword>(KeywordsDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(parent.inflateBinding(ViewItemKeywordBinding::inflate), onItemClick)
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
-
     class ViewHolder(
         private val binding: ViewItemKeywordBinding,
         onClick: (Keyword) -> Unit
-    ) : RecyclerView.ViewHolder(binding.root) {
-        private var item: Keyword? = null
+    ) : BaseViewHolder<Keyword>(binding.root) {
 
         init {
             binding.root.setOnClickListener {
@@ -31,8 +26,8 @@ class KeywordsAdapter(
             }
         }
 
-        fun bind(item: Keyword) {
-            this.item = item
+        override fun bind(item: Keyword) {
+            super.bind(item)
             binding.tvName.text = item.name
         }
     }

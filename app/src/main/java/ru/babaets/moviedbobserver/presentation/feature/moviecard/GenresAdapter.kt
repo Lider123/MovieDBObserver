@@ -2,26 +2,23 @@ package ru.babaets.moviedbobserver.presentation.feature.moviecard
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import ru.babaets.moviedbobserver.common.utils.inflateBinding
 import ru.babaets.moviedbobserver.databinding.ViewItemGenreBinding
 import ru.babaets.moviedbobserver.network.model.Genre
+import ru.babaets.moviedbobserver.presentation.feature.common.BaseAdapter
+import ru.babaets.moviedbobserver.presentation.feature.common.BaseViewHolder
 
-class GenresAdapter : ListAdapter<Genre, GenresAdapter.ViewHolder>(GenresDiffUtilCallback()) {
+class GenresAdapter : BaseAdapter<Genre>(GenresDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(parent.inflateBinding(ViewItemGenreBinding::inflate))
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
-
     class ViewHolder(
         private val binding: ViewItemGenreBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
+    ) : BaseViewHolder<Genre>(binding.root) {
 
-        fun bind(item: Genre) {
+        override fun bind(item: Genre) {
+            super.bind(item)
             binding.root.text = item.name
         }
     }

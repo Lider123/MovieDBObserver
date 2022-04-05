@@ -1,6 +1,5 @@
 package ru.babaets.moviedbobserver.presentation.feature.moviecard
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
 import ru.babaets.moviedbobserver.common.externalaction.ExternalActionHandler
@@ -31,7 +30,6 @@ class MovieViewModelImpl(
     }
 
     override fun onVideoPressed(video: Video) {
-        Log.e("TEST", "onVideoPressed(video=$video)") // TODO: remove
         video.videoUrl?.let(externalActionHandler::handleOuterLink)
     }
 
