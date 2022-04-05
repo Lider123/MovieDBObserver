@@ -1,14 +1,18 @@
 package ru.babaets.moviedbobserver.presentation.feature.moviecard
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
+import ru.babaets.moviedbobserver.common.externalaction.ExternalActionHandler
 import ru.babaets.moviedbobserver.common.navigation.AppNavigator
 import ru.babaets.moviedbobserver.network.model.Movie
+import ru.babaets.moviedbobserver.network.model.Video
 import ru.babaets.moviedbobserver.presentation.feature.common.BaseViewModel
 
 class MovieViewModelImpl(
     private val movieId: Long,
     private val getMovieUseCase: GetMovieUseCase,
+    private val externalActionHandler: ExternalActionHandler,
     navigator: AppNavigator
 ) : BaseViewModel(navigator), MovieViewModel {
 
@@ -24,6 +28,11 @@ class MovieViewModelImpl(
 
     override fun onBackPressed() {
         navigator.back()
+    }
+
+    override fun onVideoPressed(video: Video) {
+        Log.e("TEST", "onVideoPressed(video=$video)") // TODO: remove
+        video.videoUrl?.let(externalActionHandler::handleOuterLink)
     }
 
     private fun loadMovie() {

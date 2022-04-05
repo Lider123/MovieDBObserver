@@ -13,6 +13,7 @@ data class Movie(
     @Json(name = "overview") val overview: String?,
     @Json(name = "genres") val genres: List<Genre>?,
     @Json(name = "runtime") val durationMinutes: Int?,
+    @Json(name = "videos") val videos: Videos?,
     @Json(name = "vote_average") val averageVote: Float
 ) {
 

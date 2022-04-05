@@ -21,6 +21,7 @@ interface Api {
     suspend fun getMovie(
         @Path("movie_id") movieId: Long,
         @Query("api_key") apiKey: String,
+        @Query("append_to_response") appendToResponse: String
     ): Movie
 
     @GET("search/movie")

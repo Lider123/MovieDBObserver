@@ -15,7 +15,8 @@ class GetMovieInteractor(
         try {
             api.getMovie(
                 apiKey = BuildConfig.API_KEY,
-                movieId = movieId
+                movieId = movieId,
+                appendToResponse = "videos"
             )
         } catch (e: Exception) {
             throw FetchDataException(stringProvider.GET_MOVIE_ERROR, e)

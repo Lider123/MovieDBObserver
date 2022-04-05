@@ -14,4 +14,6 @@
     <string name="home_tab_search_title">Search</string>
 
     <string name="search_hint">Search movies</string>
+
+    <string name="movie_videos">Video</string>
 </resources>

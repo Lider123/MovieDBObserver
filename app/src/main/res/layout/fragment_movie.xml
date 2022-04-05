@@ -78,10 +78,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
+                android:textAppearance="@style/Typography.MovieDBObserver.TextAppearance.Small"
                 app:layout_constraintStart_toEndOf="@id/ratingBar"
                 app:layout_constraintTop_toTopOf="@id/ratingBar"
                 app:layout_constraintBottom_toBottomOf="@id/ratingBar"
-                style="@style/Typography.MovieDBObserver.TextAppearance.Small"
                 tools:text="8.4 TMDB"/>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -90,10 +90,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_default"
                 android:layout_marginTop="@dimen/margin_small"
+                android:textAppearance="@style/Typography.MovieDBObserver.TextAppearance.XLarge"
                 app:layout_constraintTop_toBottomOf="@id/ratingBar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                style="@style/Typography.MovieDBObserver.TextAppearance.XLarge"
                 tools:text="@tools:sample/lorem/random"
                 tools:lines="2"/>
 
@@ -132,6 +132,37 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="@tools:sample/lorem/random"
                 tools:lines="5"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvVideosLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:layout_marginStart="@dimen/margin_default"
+                android:text="@string/movie_videos"
+                android:textStyle="bold"
+                android:textAppearance="@style/Typography.MovieDBObserver.TextAppearance.Large"
+                app:layout_constraintTop_toBottomOf="@id/tvOverview"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvVideos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:padding="@dimen/margin_small"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/tvVideosLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:listitem="@layout/view_item_video"/>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupVideos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="tvVideosLabel,rvVideos"/>
 
             <include
                 android:id="@+id/layoutError"

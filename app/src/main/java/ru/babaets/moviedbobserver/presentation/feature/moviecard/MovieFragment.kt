@@ -29,6 +29,10 @@ class MovieFragment : BaseFragment<MovieViewModel>() {
         GenresAdapter()
     }
 
+    private val videosAdapter: VideosAdapter by lazy {
+        VideosAdapter(viewModel::onVideoPressed)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
@@ -36,6 +40,7 @@ class MovieFragment : BaseFragment<MovieViewModel>() {
                 viewModel.onBackPressed()
             }
             rvGenres.adapter = genresAdapter
+            rvVideos.adapter = videosAdapter
         }
 
         viewModel.movieLiveData.observe(viewLifecycleOwner, ::populateMovie)
@@ -78,6 +83,9 @@ class MovieFragment : BaseFragment<MovieViewModel>() {
             tvTimeInfo.text = movie.formattedDuration?.let {
                 "${movie.releaseYearString} | $it"
             } ?: movie.releaseYearString
+            videosAdapter.submitList(movie.videos?.results) {
+                groupVideos.isVisible = !movie.videos?.results.isNullOrEmpty()
+            }
         }
     }
 }

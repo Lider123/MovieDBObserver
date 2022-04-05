@@ -9,6 +9,7 @@ val movieCardModule = module {
         MovieViewModelImpl(
             movieId = movieId,
             getMovieUseCase = get(),
+            externalActionHandler = get(),
             navigator = get()
         )
     }
